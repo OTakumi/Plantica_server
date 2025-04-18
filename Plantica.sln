@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.API", "Plantica.API\Plantica.API.csproj", "{16B39E48-04C6-4DE1-8CD5-3A69C33BE8A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{53909B09-B7AC-477F-AAB2-786093E5E5E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9D8FACA5-4DA6-48C9-B4F1-6F2E37E525C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Core.Models", "Core\Plantica.Core.Models\Plantica.Core.Models.csproj", "{24540EB0-2CA2-99EF-F936-921A1FD4EEDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Infrastructure.Repositories", "Infrastructure\Plantica.Infrastructure.Repositories\Plantica.Infrastructure.Repositories.csproj", "{D7F5F36E-5328-9476-AEF8-2CF065DFBA77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Infrastructure.Data", "Infrastructure\Plantica.Infrastructure.Data\Plantica.Infrastructure.Data.csproj", "{0C808793-AEBB-761B-7F80-DCFE0B1E83FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{99F741AB-CBDC-4083-B8A9-C6C3DB3D3296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Application.Services", "Application\Plantica.Application.Services\Plantica.Application.Services.csproj", "{22037ADD-0FF2-866F-6E02-1E9E5B76F411}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Application.DTOs", "Application\Plantica.Application.DTO\Plantica.Application.DTOs.csproj", "{34600971-293B-401C-9F2C-63AC2C598F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Tests.TestBase", "Tests\Plantica.Tests.TestBase\Plantica.Tests.TestBase.csproj", "{D239A2AE-32A0-4B28-945C-FA058F43CFF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plantica.Tests.Infrastructure.Repositories", "Tests\Plantica.Tests.Infrastructure.Repositories\Plantica.Tests.Infrastructure.Repositories.csproj", "{AD6614E7-46BB-224D-4A35-78DCD688ED6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16B39E48-04C6-4DE1-8CD5-3A69C33BE8A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16B39E48-04C6-4DE1-8CD5-3A69C33BE8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16B39E48-04C6-4DE1-8CD5-3A69C33BE8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16B39E48-04C6-4DE1-8CD5-3A69C33BE8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24540EB0-2CA2-99EF-F936-921A1FD4EEDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24540EB0-2CA2-99EF-F936-921A1FD4EEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24540EB0-2CA2-99EF-F936-921A1FD4EEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24540EB0-2CA2-99EF-F936-921A1FD4EEDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7F5F36E-5328-9476-AEF8-2CF065DFBA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F5F36E-5328-9476-AEF8-2CF065DFBA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F5F36E-5328-9476-AEF8-2CF065DFBA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F5F36E-5328-9476-AEF8-2CF065DFBA77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C808793-AEBB-761B-7F80-DCFE0B1E83FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C808793-AEBB-761B-7F80-DCFE0B1E83FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C808793-AEBB-761B-7F80-DCFE0B1E83FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C808793-AEBB-761B-7F80-DCFE0B1E83FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22037ADD-0FF2-866F-6E02-1E9E5B76F411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22037ADD-0FF2-866F-6E02-1E9E5B76F411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22037ADD-0FF2-866F-6E02-1E9E5B76F411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22037ADD-0FF2-866F-6E02-1E9E5B76F411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34600971-293B-401C-9F2C-63AC2C598F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34600971-293B-401C-9F2C-63AC2C598F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34600971-293B-401C-9F2C-63AC2C598F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34600971-293B-401C-9F2C-63AC2C598F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D239A2AE-32A0-4B28-945C-FA058F43CFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D239A2AE-32A0-4B28-945C-FA058F43CFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D239A2AE-32A0-4B28-945C-FA058F43CFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D239A2AE-32A0-4B28-945C-FA058F43CFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6614E7-46BB-224D-4A35-78DCD688ED6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6614E7-46BB-224D-4A35-78DCD688ED6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6614E7-46BB-224D-4A35-78DCD688ED6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6614E7-46BB-224D-4A35-78DCD688ED6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{24540EB0-2CA2-99EF-F936-921A1FD4EEDC} = {53909B09-B7AC-477F-AAB2-786093E5E5E4}
+		{D7F5F36E-5328-9476-AEF8-2CF065DFBA77} = {9D8FACA5-4DA6-48C9-B4F1-6F2E37E525C9}
+		{0C808793-AEBB-761B-7F80-DCFE0B1E83FE} = {9D8FACA5-4DA6-48C9-B4F1-6F2E37E525C9}
+		{22037ADD-0FF2-866F-6E02-1E9E5B76F411} = {99F741AB-CBDC-4083-B8A9-C6C3DB3D3296}
+		{34600971-293B-401C-9F2C-63AC2C598F20} = {99F741AB-CBDC-4083-B8A9-C6C3DB3D3296}
+		{D239A2AE-32A0-4B28-945C-FA058F43CFF4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AD6614E7-46BB-224D-4A35-78DCD688ED6D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9975C7A7-B8C0-40F8-B283-CB1D74836A92}
+	EndGlobalSection
+EndGlobal
