@@ -12,37 +12,30 @@ namespace Plantica.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define entity structure (relationships, constraints, etc.)
-            //modelBuilder.Entity<User>()
-            //    .HasIndex(u => u.Name)
-            //    .IsUnique();
-
-            //modelBuilder.Entity<User>().OwnsOne(u => u.Name);
-
             base.OnModelCreating(modelBuilder);
 
-            // UserNameを所有エンティティとして構成
-            modelBuilder.Entity<User>().OwnsOne(u => u.Name, nameBuilder =>
-            {
-                // ValueプロパティにインデックスをBuilder方式で設定
-                nameBuilder.Property(n => n.Value)
-                    .HasMaxLength(50)
-                    .IsRequired();
+            // added to ensure the primary key is set correctly
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
 
-                // インデックスは所有エンティティのプロパティに対して設定
-                nameBuilder.HasIndex("Value").IsUnique();
-            });
-
-            // 主キーの設定を追加
-            modelBuilder.Entity<User>()
-                .HasKey(u => u.Id);
-
-            // Ulidのコンバーターを追加
+            // added to ensure the Ulid is converted correctly
             modelBuilder.Entity<User>()
                 .Property(u => u.Id)
                 .HasConversion(
                     id => id.ToString(),
                     str => Ulid.Parse(str));
+
+            // configures UserName as an owned entity
+            modelBuilder.Entity<User>().OwnsOne(u => u.Name, nameBuilder =>
+            {
+                // set index to Value property by uilder method
+                nameBuilder.Property(n => n.Value)
+                    .HasMaxLength(50)
+                    .IsRequired();
+
+                // Indexes are set for the properties of the owning entity
+                nameBuilder.HasIndex("Value").IsUnique();
+            });
+
         }
     }
 }
