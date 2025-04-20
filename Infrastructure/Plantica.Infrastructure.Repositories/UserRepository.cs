@@ -81,6 +81,12 @@ namespace Plantica.Infrastructure.Repositories
             return user;
         }
 
+        /// <summary>
+        /// Updates the user information.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<User> UpdateUserAsync(User user)
         {
             if (user == null)
