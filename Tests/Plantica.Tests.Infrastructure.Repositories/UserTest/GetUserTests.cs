@@ -136,21 +136,5 @@ namespace Plantica.Tests.Infrastructure.Repositories.UserTest
                 .WithMessage("Username cannot be null or empty.*")
                 .WithParameterName("username");
         }
-
-        [Fact]
-        public async Task GetAllUsersAsync_ReturnsAllActiveUsers()
-        {
-            // Arrange
-            // Act
-            // Assert
-        }
-
-        [Fact]
-        public async Task GetAllUsersAsync_WithIncludeDeleted_ReturnsAllUsers()
-        {
-            // Arrange
-            // Act
-            // Assert
-        }
     }
 }
