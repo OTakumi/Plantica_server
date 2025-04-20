@@ -1,6 +1,6 @@
 ﻿namespace Plantica.Application.DTOs
 {
-    public class UserUpdateDTO
+    public class UserUpdateDto
     {
         public string? Name { get; set; }
         public string? Email { get; set; }
