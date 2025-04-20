@@ -8,7 +8,7 @@ using Plantica.Tests.TestBase;
 
 using Xunit.Abstractions;
 
-namespace Plantica.Tests.Infrastructure.Repositories.UserTest
+namespace Plantica.Tests.Infrastructure.Repositories.UserTests
 {
     public class RegisterUserTests : RepositoryTestBase
     {
