@@ -296,7 +296,7 @@ namespace Plantica.Tests.Application.Services.UserTest
             var user = CreateTestUser("oldname", "old@example.com", setupInRepository: true);
             var updatedUserData = new UserUpdateDto
             {
-                Username = "newname",
+                Name = "newname",
                 Email = "new@example.com"
             };
 
@@ -307,8 +307,8 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             // Setup the repository to throw KeyNotFoundException when GetUserByUsernameAsync is called with the new username
             MockUserRepository
-                .Setup(repo => repo.GetUserByUsernameAsync(updatedUserData.Username))
-                .ThrowsAsync(new KeyNotFoundException($"User with username '{updatedUserData.Username}' not found."));
+                .Setup(repo => repo.GetUserByUsernameAsync(updatedUserData.Name))
+                .ThrowsAsync(new KeyNotFoundException($"User with username '{updatedUserData.Name}' not found."));
 
             // Setup the repository to return the user when UpdateUserAsync is called
             MockUserRepository
@@ -320,12 +320,12 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             // Assert
             result.Should().NotBeNull();
-            result.Name.Value.Should().Be(updatedUserData.Username);
+            result.Name.Value.Should().Be(updatedUserData.Name);
             result.Email.Should().Be(updatedUserData.Email);
 
             // Verify repository methods were called
             MockUserRepository.Verify(repo => repo.GetUserByIdAsync(user.Id), Times.Once);
-            MockUserRepository.Verify(repo => repo.GetUserByUsernameAsync(updatedUserData.Username), Times.Once);
+            MockUserRepository.Verify(repo => repo.GetUserByUsernameAsync(updatedUserData.Name), Times.Once);
             MockUserRepository.Verify(repo => repo.UpdateUserAsync(It.IsAny<User>()), Times.Once);
         }
 
@@ -341,7 +341,7 @@ namespace Plantica.Tests.Application.Services.UserTest
             var userId = Ulid.NewUlid();
             var updatedUserData = new UserUpdateDto
             {
-                Username = "newname",
+                Name = "newname",
                 Email = "new@example.com"
             };
 
@@ -377,7 +377,7 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             var updatedUserData = new UserUpdateDto
             {
-                Username = existingUser.Name.Value,
+                Name = existingUser.Name.Value,
                 Email = "new@example.com"
             };
 
@@ -388,7 +388,7 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             // Setup repository to return the existing user when GetUserByUsernameAsync is called with the new username
             MockUserRepository
-                .Setup(repo => repo.GetUserByUsernameAsync(updatedUserData.Username))
+                .Setup(repo => repo.GetUserByUsernameAsync(updatedUserData.Name))
                 .ReturnsAsync(existingUser);
 
             // Act
@@ -400,7 +400,7 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             // Verify repository methods were called
             MockUserRepository.Verify(repo => repo.GetUserByIdAsync(user.Id), Times.Once);
-            MockUserRepository.Verify(repo => repo.GetUserByUsernameAsync(updatedUserData.Username), Times.Once);
+            MockUserRepository.Verify(repo => repo.GetUserByUsernameAsync(updatedUserData.Name), Times.Once);
             MockUserRepository.Verify(repo => repo.UpdateUserAsync(It.IsAny<User>()), Times.Never);
         }
 
@@ -415,7 +415,7 @@ namespace Plantica.Tests.Application.Services.UserTest
             var emptyId = Ulid.Empty;
             var updatedUserData = new UserUpdateDto
             {
-                Username = "newname",
+                Name = "newname",
                 Email = "new@example.com"
             };
 
