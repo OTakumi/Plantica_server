@@ -444,14 +444,13 @@ namespace Plantica.Tests.Application.Services.UserTest
 
             // Setup repository to return true when DeleteUserAsync is called
             MockUserRepository
-                .Setup(repo => repo.DeleteUserAsync(user.Id))
-                .ReturnsAsync(true);
+                .Setup(repo => repo.DeleteUserAsync(user.Id));
 
             // Act
             var result = await UserService.DeleteUserAsync(user.Id);
 
             // Assert
-            result.Should().BeTrue();
+            result.IsDeleted.Should().BeTrue();
 
             // Verify repository methods were called
             MockUserRepository.Verify(repo => repo.GetUserByIdAsync(user.Id), Times.Once);

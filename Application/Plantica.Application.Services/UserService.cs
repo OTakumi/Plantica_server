@@ -46,5 +46,74 @@ namespace Plantica.Application.Services
             // Save user to database
             return await _userRepository.RegisterUserAsync(user);
         }
+
+        public async Task<User> UpdateUserAsync(Ulid userId, UserUpdateDto updateDto)
+        {
+            if (userId == Ulid.Empty)
+                throw new ArgumentException("User ID cannot be empty.", nameof(userId));
+
+            // Get existing user
+            var user = await _userRepository.GetUserByIdAsync(userId);
+
+            // Update user properties if provided
+            if (!string.IsNullOrWhiteSpace(updateDto.Name))
+            {
+                // Check if new username is already taken (only if username is being changed)
+                if (updateDto.Name != user.Name.Value)
+                {
+                    try
+                    {
+                        var existingUser = await _userRepository.GetUserByUsernameAsync(updateDto.Name);
+                        if (existingUser != null && existingUser.Id != userId)
+                        {
+                            throw new ApplicationException("Username already exists");
+                        }
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        // Username is available
+                    }
+
+                    user.UpdateName(updateDto.Name);
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(updateDto.Email))
+            {
+                user.UpdateEmail(updateDto.Email);
+            }
+
+            // Save changes
+            return await _userRepository.UpdateUserAsync(user);
+        }
+
+        public async Task<User> DeleteUserAsync(Ulid userId)
+        {
+            if (userId == Ulid.Empty)
+                throw new ArgumentException("User ID cannot be empty.", nameof(userId));
+
+            // Verify user exists
+            await _userRepository.GetUserByIdAsync(userId);
+
+            // Delete user
+            return await _userRepository.DeleteUserAsync(userId);
+        }
+
+        public async Task<User> AuthenticateUserAsync(UserLoginDto loginDto)
+        {
+            // Get user by username
+            var user = await _userRepository.GetUserByUsernameAsync(loginDto.Username);
+            if (user == null)
+            {
+                throw new ApplicationException("Invalid username or password");
+            }
+            // Verify password
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
+            if (result == PasswordVerificationResult.Failed)
+            {
+                throw new ApplicationException("Invalid username or password");
+            }
+            return user;
+        }
     }
 }
