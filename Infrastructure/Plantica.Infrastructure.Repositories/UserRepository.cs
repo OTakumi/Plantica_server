@@ -43,6 +43,7 @@ namespace Plantica.Infrastructure.Repositories
             // Search for the user by username
             // UserName is a value object, so we need to search from own entity of EFCore
             var user = await _context.Users
+                .Where(u => u.IsDeleted == false)
                 .FirstOrDefaultAsync(u => u.Name.Value == username);
 
             return user ?? throw new KeyNotFoundException($"User with username '{username}' not found.");
