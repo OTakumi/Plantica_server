@@ -101,5 +101,21 @@ namespace Plantica.Infrastructure.Repositories
 
             return existingUser;
         }
+
+        public async Task<User> DeleteUserAsync(Ulid userId)
+        {
+            if (userId == Ulid.Empty)
+                throw new ArgumentException("User ID cannot be empty.", nameof(userId));
+
+            // Check if the user exists
+            var existingUser = await GetUserByIdAsync(userId);
+
+            // Mark the user as deleted
+            existingUser.IsDeleted = true;
+            _context.Entry(existingUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return existingUser;
+        }
     }
 }
