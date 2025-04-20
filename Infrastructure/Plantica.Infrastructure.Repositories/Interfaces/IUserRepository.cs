@@ -7,5 +7,6 @@ namespace Plantica.Infrastructure.Repositories.Interfaces
         Task<User> GetUserByIdAsync(Ulid userId);
         Task<User> GetUserByUsernameAsync(string username);
         Task<User> RegisterUserAsync(User user);
+        Task<User> UpdateUserAsync(User user);
     }
 }
