@@ -80,5 +80,20 @@ namespace Plantica.Infrastructure.Repositories
 
             return user;
         }
+
+        public async Task<User> UpdateUserAsync(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user), "User cannot be null.");
+
+            // Check if the user exists
+            var existingUser = await GetUserByIdAsync(user.Id);
+
+            // Update the user
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+            await _context.SaveChangesAsync();
+
+            return existingUser;
+        }
     }
 }
