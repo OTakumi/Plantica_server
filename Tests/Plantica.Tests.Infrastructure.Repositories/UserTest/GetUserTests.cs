@@ -74,52 +74,67 @@ namespace Plantica.Tests.Infrastructure.Repositories.UserTest
                 .WithParameterName("userId");
         }
 
+        /// <summary>
+        /// Tests the GetUserByUsernameAsync method with a valid username.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetUserByUsernameAsync_WithValidUsername_ReturnsUser()
         {
             // Arrange
+            var username = "testuser";
+            var email = "test@example.com";
+            var user = await AddUserAsync(username, email);
+
             // Act
+            var result = await _repository.GetUserByUsernameAsync(username);
+
             // Assert
+            result.Should().NotBeNull();
+            result.Id.Should().Be(user.Id);
+            result.Name.Value.Should().Be(username);
+            result.Email.Should().Be(email);
         }
 
+        /// <summary>
+        /// Tests the GetUserByUsernameAsync method with a non-existent username.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetUserByUsernameAsync_WithNonExistentUsername_ThrowsKeyNotFoundException()
         {
             // Arrange
+            var username = "testuser";
+            var email = "test@example/com";
+            var user = await AddUserAsync("testuser", email);
+
             // Act
+            Func<Task> act = () => _repository.GetUserByUsernameAsync("nonexistentuser");
+
             // Assert
+            await act.Should().ThrowAsync<KeyNotFoundException>()
+                .WithMessage("User with username 'nonexistentuser' not found.");
         }
 
+        /// <summary>
+        /// Tests the GetUserByUsernameAsync method with a null or empty username.
+        /// </summary>
+        /// <returns></returns>
         [Fact]
         public async Task GetUserByUsernameAsync_WithNullOrEmptyUsername_ThrowsArgumentException()
         {
             // Arrange
-            // Act
-            // Assert
-        }
+            var username = string.Empty;
+            var email = "test@example.com";
+            var user = await AddUserAsync("testuser", email);
 
-        [Fact]
-        public async Task UpdateUserAsync_WithValidUser_ReturnsUpdatedUser()
-        {
-            // Arrange
             // Act
-            // Assert
-        }
+            Func<Task> act = () => _repository.GetUserByUsernameAsync(username);
 
-        [Fact]
-        public async Task UpdateUserAsync_WithNonExistentUser_ThrowsKeyNotFoundException()
-        {
-            // Arrange
-            // Act
             // Assert
-        }
-
-        [Fact]
-        public async Task UpdateUserAsync_WithNullUser_ThrowsArgumentNullException()
-        {
-            // Arrange
-            // Act
-            // Assert
+            await act.Should().ThrowAsync<ArgumentException>()
+                .WithMessage("Username cannot be null or empty.*")
+                .WithParameterName("username");
         }
 
         [Fact]
