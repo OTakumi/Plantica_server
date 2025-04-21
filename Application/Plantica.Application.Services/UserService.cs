@@ -30,6 +30,17 @@ namespace Plantica.Application.Services
 
         public async Task<User> RegisterUserAsync(UserRegistrationDto registrationDto)
         {
+            // Check arguments
+            if (registrationDto == null)
+                throw new ArgumentNullException(nameof(registrationDto), "Registration DTO cannot be null.");
+
+            if (string.IsNullOrWhiteSpace(registrationDto.Username))
+                throw new ArgumentException("Username cannot be null or empty.", nameof(registrationDto.Username));
+            if (string.IsNullOrWhiteSpace(registrationDto.Email))
+                throw new ArgumentException("Email cannot be null or empty.", nameof(registrationDto.Email));
+            if (string.IsNullOrWhiteSpace(registrationDto.Password))
+                throw new ArgumentException("Password cannot be null or empty.", nameof(registrationDto.Password));
+
             // Validate username is unique
             var existingUser = await _userRepository.GetUserByUsernameAsync(registrationDto.Username);
             if (existingUser != null)
