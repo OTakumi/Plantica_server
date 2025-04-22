@@ -9,7 +9,7 @@ namespace Plantica.Application.Services.Interfaces
         Task<User?> GetUserByUsernameAsync(string username);
         Task<User> RegisterUserAsync(UserRegistrationDto registrationDto);
         Task<User> UpdateUserAsync(Ulid userId, UserUpdateDto updateDto);
-        Task<User> DeleteUserAsync(Ulid userId);
+        Task<bool> DeleteUserAsync(Ulid userId);
         Task<User> AuthenticateUserAsync(UserLoginDto loginDto);
     }
 }

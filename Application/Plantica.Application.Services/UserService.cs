@@ -98,7 +98,7 @@ namespace Plantica.Application.Services
             return await _userRepository.UpdateUserAsync(user);
         }
 
-        public async Task<User> DeleteUserAsync(Ulid userId)
+        public async Task<bool> DeleteUserAsync(Ulid userId)
         {
             if (userId == Ulid.Empty)
                 throw new ArgumentException("User ID cannot be empty.", nameof(userId));
@@ -106,8 +106,11 @@ namespace Plantica.Application.Services
             // Verify user exists
             await _userRepository.GetUserByIdAsync(userId);
 
+            // Delete user and convert result to boolean
+            var deletedUser = await _userRepository.DeleteUserAsync(userId);
+
             // Delete user
-            return await _userRepository.DeleteUserAsync(userId);
+            return deletedUser != null;
         }
 
         public async Task<User> AuthenticateUserAsync(UserLoginDto loginDto)

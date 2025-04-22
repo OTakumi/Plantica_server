@@ -450,23 +450,21 @@ namespace Plantica.Tests.Application.Services.UserTest
         {
             // Arrange
             var user = CreateTestUser("userToDelete", "delete@example.com", setupInRepository: true);
-            _output.WriteLine($"Deleting user: {user.Id} - {user.Name.Value} - {user.Email} - {user.IsDeleted}");
 
             // Setup repository to return true when DeleteUserAsync is called
             MockUserRepository
-                .Setup(repo => repo.DeleteUserAsync(user.Id));
+                .Setup(repo => repo.DeleteUserAsync(user.Id))
+                .ReturnsAsync(user);
 
             // Act
             var result = await UserService.DeleteUserAsync(user.Id);
-            _output.WriteLine(result.ToString());
-            //_output.WriteLine($"Deleted user: {result.Id} - {result.Name.Value} - {result.Email}");
 
             // Assert
-            result.Should().NotBeNull();
+            result.Should().Be(true);
 
             // Verify repository methods were called
-            //MockUserRepository.Verify(repo => repo.GetUserByIdAsync(user.Id), Times.Once);
-            //MockUserRepository.Verify(repo => repo.DeleteUserAsync(user.Id), Times.Once);
+            MockUserRepository.Verify(repo => repo.GetUserByIdAsync(user.Id), Times.Once);
+            MockUserRepository.Verify(repo => repo.DeleteUserAsync(user.Id), Times.Once);
         }
 
         /// <summary>
