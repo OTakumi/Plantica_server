@@ -6,5 +6,6 @@
         public required string Email { get; set; }
         public required string Password { get; set; }
         public string? Department { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

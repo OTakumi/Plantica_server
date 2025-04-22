@@ -35,7 +35,7 @@ namespace Plantica.Infrastructure.Repositories
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="KeyNotFoundException"></exception>
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
                 throw new ArgumentException("Username cannot be null or empty.", nameof(username));
@@ -46,7 +46,8 @@ namespace Plantica.Infrastructure.Repositories
                 .Where(u => u.IsDeleted == false)
                 .FirstOrDefaultAsync(u => u.Name.Value == username);
 
-            return user ?? throw new KeyNotFoundException($"User with username '{username}' not found.");
+            // Return null if the user is not found
+            return user;
         }
 
         /// <summary>
@@ -67,8 +68,9 @@ namespace Plantica.Infrastructure.Repositories
                 // Check if the user already exists
                 var existingUser = await GetUserByUsernameAsync(user.Name.Value.ToString());
 
-                // If an exception is not thrown and you reach this point, it means that the user has been found.
-                throw new InvalidOperationException($"Username '{user.Name.Value}' is already taken.");
+                // If exsistingUser is null and you reach this point, it means that the user has been found.
+                if (existingUser != null)
+                    throw new InvalidOperationException($"User with username {user.Name.Value} already exists.");
             }
             catch (KeyNotFoundException)
             {

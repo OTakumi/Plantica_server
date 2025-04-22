@@ -103,7 +103,7 @@ namespace Plantica.Tests.Application.Services
 
             MockUserRepository
                 .Setup(repo => repo.GetUserByUsernameAsync(username))
-                .ThrowsAsync(new KeyNotFoundException($"User with username '{username}' not found."));
+                .ReturnsAsync((User?)null);
         }
 
         /// <summary>

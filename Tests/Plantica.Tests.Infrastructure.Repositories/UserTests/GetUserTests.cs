@@ -106,14 +106,14 @@ namespace Plantica.Tests.Infrastructure.Repositories.UserTests
             // Arrange
             var username = "testuser";
             var email = "test@example/com";
-            var user = await AddUserAsync("testuser", email);
+
+            await AddUserAsync(username, email);
 
             // Act
-            Func<Task> act = () => _repository.GetUserByUsernameAsync("nonexistentuser");
+            var result = await _repository.GetUserByUsernameAsync("nonexistentuser");
 
             // Assert
-            await act.Should().ThrowAsync<KeyNotFoundException>()
-                .WithMessage("User with username 'nonexistentuser' not found.");
+            result.Should().BeNull();
         }
 
         /// <summary>

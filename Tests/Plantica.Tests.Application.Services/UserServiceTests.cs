@@ -123,23 +123,27 @@ namespace Plantica.Tests.Application.Services.UserTest
         }
 
         /// <summary>
-        /// Tests that GetUserByUsernameAsync throws KeyNotFoundException when provided with a non-existent username.
+        /// Tests that GetUserByUsernameAsync returns null when provided with a non-existent username.
         /// </summary>
         /// <returns>A task representing the asynchronous test operation.</returns>
         [Fact]
-        public async Task GetUserByUsernameAsync_WithNonExistentUsername_ThrowsKeyNotFoundException()
+        public async Task GetUserByUsernameAsync_WithNonExistentUsername_ReturnsNull()
         {
             // Arrange
             var username = "nonexistentuser";
-            SetupUserNotFound(Ulid.NewUlid(), username);
+
+            // Setup repository to return null for non-existent username
+            MockUserRepository
+                .Setup(repo => repo.GetUserByUsernameAsync(username))
+                .ReturnsAsync(null as User);
 
             // Act
-            Func<Task> act = async () => await UserService.GetUserByUsernameAsync(username);
+            var result = await UserService.GetUserByUsernameAsync(username);
 
             // Assert
-            await act.Should().ThrowAsync<KeyNotFoundException>()
-                .WithMessage($"User with username '{username}' not found.");
+            result.Should().BeNull();
 
+            // Verify repository method was called
             MockUserRepository.Verify(repo => repo.GetUserByUsernameAsync(username), Times.Once);
         }
 
@@ -189,7 +193,7 @@ namespace Plantica.Tests.Application.Services.UserTest
             // Setup mock to return null to indicate username is available
             MockUserRepository
                 .Setup(repo => repo.GetUserByUsernameAsync(registrationDto.Username))
-                .ThrowsAsync(new KeyNotFoundException($"User with username '{registrationDto.Username}' not found."));
+                .ReturnsAsync(null as User);
 
             User? createdUser = null;
             MockUserRepository
